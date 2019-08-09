@@ -29,7 +29,8 @@ sh = dash.overrideAttrs (_: rec {
   rootfs = mkRootfs {
       name = "apache2-php72-rootfs";
       src = ./rootfs;
-      inherit curl coreutils findutils apacheHttpdmpmITK apacheHttpd mjHttpErrorPages php72 postfix s6 execline mjperl5Packages;
+      inherit curl coreutils findutils apacheHttpdmpmITK apacheHttpd mjHttpErrorPages php72 postfix s6 execline;
+      mjperl5Packages = mjperl5lib;
       ioncube = ioncube.v72;
       s6PortableUtils = s6-portable-utils;
       s6LinuxUtils = s6-linux-utils;
@@ -79,33 +80,9 @@ pkgs.dockerTools.buildLayeredImage rec {
     postfix
     sh
     coreutils
-    perl
-         perlPackages.TextTruncate
-         perlPackages.TimeLocal
-         perlPackages.PerlMagick
-         perlPackages.commonsense
-         perlPackages.Mojolicious
-         perlPackages.base
-         perlPackages.libxml_perl
-         perlPackages.libnet
-         perlPackages.libintl_perl
-         perlPackages.LWP
-         perlPackages.ListMoreUtilsXS
-         perlPackages.LWPProtocolHttps
-         perlPackages.DBI
-         perlPackages.DBDmysql
-         perlPackages.CGI
-         perlPackages.FilePath
-         perlPackages.DigestPerlMD5
-         perlPackages.DigestSHA1
-         perlPackages.FileBOM
-         perlPackages.GD
-         perlPackages.LocaleGettext
-         perlPackages.HashDiff
-         perlPackages.JSONXS
-         perlPackages.POSIXstrftimeCompiler
-         perlPackages.perl
-  ] ++ collect isDerivation php72Packages;
+  ]
+  ++ collect isDerivation mjperl5Packages
+  ++ collect isDerivation php72Packages;
   config = {
     Entrypoint = [ "${rootfs}/init" ];
     Env = [
