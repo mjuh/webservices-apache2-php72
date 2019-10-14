@@ -42,6 +42,9 @@ pkgs.dockerTools.buildLayeredImage rec {
     postfix
     sh
     coreutils
+    libjpeg_turbo
+    (optipng.override{ inherit libpng ;})
+    gifsicle
   ] ++ collect isDerivation phpPackages.php72Packages;
   config = {
     Entrypoint = [ "${rootfs}/init" ];
