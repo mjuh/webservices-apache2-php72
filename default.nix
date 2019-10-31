@@ -44,7 +44,7 @@ pkgs.dockerTools.buildLayeredImage rec {
     coreutils
     libjpeg_turbo
     (optipng.override{ inherit libpng ;})
-    gifsicle cacert
+    gifsicle cacert zip
   ] ++ collect isDerivation phpPackages.php72Packages;
   config = {
     Entrypoint = [ "${rootfs}/init" ];
