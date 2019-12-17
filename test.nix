@@ -1,11 +1,11 @@
 with import <nixpkgs> {
   overlays = [
-    (import (builtins.fetchGit { url = "git@gitlab.intr:_ci/nixpkgs.git"; ref = "master"; }))
+    (import (builtins.fetchGit { url = "git@gitlab.intr:_ci/nixpkgs.git"; ref = (if builtins ? getEnv then builtins.getEnv "GIT_BRANCH" else "master"); }))
   ];
 };
 
 maketestPhp {
-  php = php.php72;
+  php = php72;
   image = callPackage ./default.nix {};
   rootfs = ./rootfs;
 }
