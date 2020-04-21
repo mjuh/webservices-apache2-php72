@@ -1,5 +1,6 @@
-@Library('mj-shared-library') _
-buildWebService(testHook: {
+buildWebService(
+    publishOnInternet: true,
+    testHook: {
         build (job: "../../apps/bitrix-start/master",
                parameters: [[$class: "BooleanParameterValue",
                              name: "DEPLOY",
