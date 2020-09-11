@@ -18,7 +18,6 @@ let
 
 in maketestPhp {
   inherit image;
-  inherit debug;
   php = php72;
   inherit containerStructureTestConfig;
   rootfs = ./rootfs;
